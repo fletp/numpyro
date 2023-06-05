@@ -825,6 +825,16 @@ class Kumaraswamy(TransformedDistribution):
         log_beta = betaln(1 + 2 / self.concentration1, self.concentration0)
         return self.concentration0 * jnp.exp(log_beta) - jnp.square(self.mean)
 
+    def cdf(self, value):
+        return 1 - jnp.power(
+            (1 - jnp.power(value, self.concentration0)), self.concentration1
+        )
+
+    def icdf(self, q):
+        return jnp.power(
+            1 - jnp.power(1 - q, 1 / self.concentration1), 1 / self.concentration0
+        )
+
     def tree_flatten(self):
         return super(TransformedDistribution, self).tree_flatten()
 
