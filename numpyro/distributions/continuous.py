@@ -831,9 +831,9 @@ class Kumaraswamy(TransformedDistribution):
         )
 
     def icdf(self, q):
-        return jnp.power(
-            1 - jnp.power(1 - q, 1 / self.concentration1), 1 / self.concentration0
-        )
+        inner = jnp.power(1 - q, 1 / self.concentration1)
+        outer = jnp.power(1 - inner, 1 / self.concentration0)
+        return outer
 
     def tree_flatten(self):
         return super(TransformedDistribution, self).tree_flatten()
