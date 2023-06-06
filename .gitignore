@@ -34,3 +34,6 @@ numpyro/examples/.data
 # docs
 docs/build
 docs/.DS_Store
+
+# tests
+*.ipynb
